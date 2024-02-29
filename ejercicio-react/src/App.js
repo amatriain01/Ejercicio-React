@@ -5,8 +5,8 @@ import BotonOperacion from './Componentes/BotonOperacion';
 import MostradorResultado from './Componentes/MostradorResultado';
 
 function App() {
-  const [num1, setNum1] = useState('');
-  const [num2, setNum2] = useState('');
+  const [num1, setNum1] = useState('0');
+  const [num2, setNum2] = useState('0');
   const [operation, setOperation] = useState('+');
   const [result, setResult] = useState('');
 
@@ -17,16 +17,16 @@ function App() {
         result = parseFloat(num1) + parseFloat(num2);
         break;
       case '-':
-        result = parseFloat(num1) - parseFloat(num2);
+        result = num1 - num2;
         break;
       case '*':
-        result = parseFloat(num1) * parseFloat(num2);
+        result = num1 * num2;
         break;
       case '/':
-        result = parseFloat(num1) / parseFloat(num2);
+        result = num1 / num2;
         break;
       default:
-        result = '';
+        result = '0';
     }
     setOperation(operation);
     setResult(result);
@@ -50,12 +50,12 @@ function App() {
           />
         </Row>
         <Row style={{ padding: '10px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('+')} style={{ fontWeight: operation === '+' ? 'bold' : 'normal' }} text="Sumar" />
-          <BotonOperacion onClick={() => handleOperacion('-')} style={{ fontWeight: operation === '-' ? 'bold' : 'normal' }} text="Restar" />
+          <BotonOperacion onClick={() => handleOperacion('+')} operation='+' text="Sumar" currentOperation={operation} />
+          <BotonOperacion onClick={() => handleOperacion('-')} operation='-' text="Restar" currentOperation={operation} />
         </Row>
         <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('*')} style={{ fontWeight: operation === '*' ? 'bold' : 'normal' }} text="Multiplicar" />
-          <BotonOperacion onClick={() => handleOperacion('/')} style={{ fontWeight: operation === '/' ? 'bold' : 'normal' }} text="Dividir" />
+          <BotonOperacion onClick={() => handleOperacion('*')} operation='*' text="Multiplicar" currentOperation={operation} />
+          <BotonOperacion onClick={() => handleOperacion('/')} operation='/' text="Dividir" currentOperation={operation} />
         </Row>
         <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
           <MostradorResultado result={result} />

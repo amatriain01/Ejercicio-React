@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const BotonOperacion = ({ onClick, text }) => {
+const BotonOperacion = ({ onClick, operation, text, currentOperation }) => {
     return (
-        <Button onClick={onClick}>{text}</Button>
+        <Button style={{ fontWeight: operation === currentOperation ? 'bold' : 'normal' }} onClick={onClick}>{text}</Button>
     );
 }
 
