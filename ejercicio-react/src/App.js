@@ -2,29 +2,34 @@ import React, { useState } from 'react';
 import { Row, Card } from 'react-bootstrap';
 import CampoEntrada from './Componentes/CampoEntrada';
 import BotonOperacion from './Componentes/BotonOperacion';
+import MostradorResultado from './Componentes/MostradorResultado';
 
 function App() {
   const [num1, setNum1] = useState('');
   const [num2, setNum2] = useState('');
+  const [operation, setOperation] = useState('+');
+  const [result, setResult] = useState('');
 
-  const handleOperacion = (operador) => {
-    let res;
-    switch (operador) {
+  const handleOperacion = (operation) => {
+    let result;
+    switch (operation) {
       case '+':
-        res = parseFloat(num1) + parseFloat(num2);
+        result = parseFloat(num1) + parseFloat(num2);
         break;
       case '-':
-        res = parseFloat(num1) - parseFloat(num2);
+        result = parseFloat(num1) - parseFloat(num2);
         break;
       case '*':
-        res = parseFloat(num1) * parseFloat(num2);
+        result = parseFloat(num1) * parseFloat(num2);
         break;
       case '/':
-        res = parseFloat(num1) / parseFloat(num2);
+        result = parseFloat(num1) / parseFloat(num2);
         break;
       default:
-        res = '';
+        result = '';
     }
+    setOperation(operation);
+    setResult(result);
   };
 
   return (
@@ -45,12 +50,15 @@ function App() {
           />
         </Row>
         <Row style={{ padding: '10px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('+')} text="Sumar" />
-          <BotonOperacion onClick={() => handleOperacion('-')} text="Restar" />
+          <BotonOperacion onClick={() => handleOperacion('+')} style={{ fontWeight: operation === '+' ? 'bold' : 'normal' }} text="Sumar" />
+          <BotonOperacion onClick={() => handleOperacion('-')} style={{ fontWeight: operation === '-' ? 'bold' : 'normal' }} text="Restar" />
         </Row>
         <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('*')} text="Multiplicar" />
-          <BotonOperacion onClick={() => handleOperacion('/')} text="Dividir" />
+          <BotonOperacion onClick={() => handleOperacion('*')} style={{ fontWeight: operation === '*' ? 'bold' : 'normal' }} text="Multiplicar" />
+          <BotonOperacion onClick={() => handleOperacion('/')} style={{ fontWeight: operation === '/' ? 'bold' : 'normal' }} text="Dividir" />
+        </Row>
+        <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <MostradorResultado result={result} />
         </Row>
       </Card>
     </div >

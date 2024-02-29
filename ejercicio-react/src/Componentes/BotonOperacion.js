@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 const BotonOperacion = ({ onClick, text }) => {
     return (
