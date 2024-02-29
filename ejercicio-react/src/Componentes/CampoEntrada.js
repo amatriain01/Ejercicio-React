@@ -10,7 +10,6 @@ const CampoEntrada = ({ controlId, label, value, onChange }) => {
         <Form.Group style={{ padding: '10px' }} controlId={controlId}>
             <Form.Label>{label}</Form.Label>
             <Form.Control
-                text-center
                 type="number"
                 placeholder={`Ingrese un número`}
                 value={value}
