@@ -7,7 +7,7 @@ const CampoEntrada = ({ controlId, label, value, onChange }) => {
     }
 
     return (
-        <Form.Group style={{ padding: '10px' }} controlId={controlId}>
+        <Form.Group controlId={controlId}>
             <Form.Label>{label}</Form.Label>
             <Form.Control
                 type="number"

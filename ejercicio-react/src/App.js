@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Row, Card } from 'react-bootstrap';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 import CampoEntrada from './Componentes/CampoEntrada';
-import BotonOperacion from './Componentes/BotonOperacion';
 import MostradorResultado from './Componentes/MostradorResultado';
+import './App.css';
 
 function App() {
   const [num1, setNum1] = useState('0');
   const [num2, setNum2] = useState('0');
-  const [operation, setOperation] = useState('+');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState('0');
+  const [clickedButton, setClickedButton] = useState('+');
 
-  const handleOperacion = (operation) => {
+  const handleOperation = (operation) => {
     let result;
     switch (operation) {
       case '+':
@@ -28,40 +28,57 @@ function App() {
       default:
         result = '0';
     }
-    setOperation(operation);
     setResult(result);
+    setClickedButton(operation);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh', textAlign: 'center' }}>
-      <Card style={{ width: '30rem', padding: '20px' }}>
-        <Row>
-          <CampoEntrada
-            controlId="num1"
-            label="A:"
-            value={num1}
-            onChange={setNum1}
-          />
-          <CampoEntrada
-            controlId="num2"
-            label="B:"
-            value={num2}
-            onChange={setNum2}
-          />
-        </Row>
-        <Row style={{ padding: '10px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('+')} operation='+' text="Sumar" currentOperation={operation} />
-          <BotonOperacion onClick={() => handleOperacion('-')} operation='-' text="Restar" currentOperation={operation} />
-        </Row>
-        <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <BotonOperacion onClick={() => handleOperacion('*')} operation='*' text="Multiplicar" currentOperation={operation} />
-          <BotonOperacion onClick={() => handleOperacion('/')} operation='/' text="Dividir" currentOperation={operation} />
-        </Row>
-        <Row style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <MostradorResultado result={result} />
-        </Row>
-      </Card>
-    </div >
+    <>
+      <div>
+        <h1 className="text-center mt-5">Calculadora</h1>
+      </div>
+      <div className="d-flex justify-content-center align-items-center">
+        <Card className="shadow" style={{ width: '30rem', padding: '20px' }}>
+          <Row>
+            <Col>
+              <CampoEntrada
+                controlId="num1"
+                label="A:"
+                value={num1}
+                onChange={setNum1}
+              />
+            </Col>
+            <Col>
+              <CampoEntrada
+                controlId="num2"
+                label="B:"
+                value={num2}
+                onChange={setNum2}
+              />
+            </Col>
+          </Row>
+          <Row className="justify-content-center mt-3 mb-3 text-center">
+            <Col>
+              <Button onClick={() => handleOperation('+')} variant={clickedButton === '+' ? 'primary border-red' : 'primary border-blue'} className="w-100 mr-2">Sumar</Button>
+            </Col>
+            <Col>
+              <Button onClick={() => handleOperation('-')} variant={clickedButton === '-' ? 'primary border-red' : 'primary border-blue'} className="w-100">Restar</Button>
+            </Col>
+          </Row>
+          <Row className="justify-content-center mb-3 text-center">
+            <Col>
+              <Button onClick={() => handleOperation('*')} variant={clickedButton === '*' ? 'primary border-red' : 'primary border-blue'} className="w-100 mr-2">Multiplicar</Button>
+            </Col>
+            <Col>
+              <Button onClick={() => handleOperation('/')} variant={clickedButton === '/' ? 'primary border-red' : 'primary border-blue'} className="w-100">Dividir</Button>
+            </Col>
+          </Row>
+          <Row className="justify-content-center text-center">
+            <MostradorResultado result={result} />
+          </Row>
+        </Card>
+      </div >
+    </>
   );
 }
 
