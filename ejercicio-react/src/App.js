@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import CampoEntrada from './Componentes/CampoEntrada';
 import MostradorResultado from './Componentes/MostradorResultado';
@@ -10,9 +10,9 @@ function App() {
   const [result, setResult] = useState('0');
   const [clickedButton, setClickedButton] = useState('+');
 
-  const handleOperation = (operation) => {
+  const calculateResult = useCallback(() => {
     let result;
-    switch (operation) {
+    switch (clickedButton) {
       case '+':
         result = parseFloat(num1) + parseFloat(num2);
         break;
@@ -29,6 +29,13 @@ function App() {
         result = '0';
     }
     setResult(result);
+  }, [num1, num2, clickedButton]);
+
+  useEffect(() => {
+    calculateResult();
+  }, [calculateResult]);
+
+  const handleOperation = (operation) => {
     setClickedButton(operation);
   };
 
